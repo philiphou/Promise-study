@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise 初体验</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="page-header"> Promise 初体验</h2>
+        <button class="btn btn-primary" id="btn"> click for lottery </button>
+        <button class="btn btn-primary" id="btn2"> click for lottery-Promise case </button>
+        <script>
+            //  生成随机数
+            function rand(m, n) {
+                return Math.ceil(Math.random() * (n - m + 1) + m - 1)
+            }
+            /*
+             点击按钮，1s后显示是否中奖 （30% 概率中奖）
+
+              若中奖： 弹出恭喜 奖品为 iPhone 一部
+              若未中奖： 弹出 再接再厉
+
+             */
+
+            //   获取元素对象： 
+            const btn = document.querySelector("#btn")
+            const btn2 = document.querySelector("#btn2")
+                // console.log(btn)
+                //绑定单击事件：
+            btn.addEventListener('click', function() {
+                //  定时器：
+                setTimeout(
+                    () => {
+                        // 30% 概率就是 1-100 随机数之间出现 1-30 的概率
+                        //  获取 1-100 的随机数
+                        let n = rand(1, 100)
+                        if (n <= 30) {
+                            alert('Congratulations, you win an iPhone')
+                        } else {
+                            alert('Please try next time')
+                        }
+                    }, 1000
+
+                )
+            })
+
+            //  利用 promise 形式进行封装： 
+            //  1. 创建一个 promise 实例, 实例化时候，Promise() 需要接收一个参数，参数是一个函数类型的值，函数有两个形参， resolve 和 reject
+            //  resolve 和 reject 都是函数类型的数据，当异步任务成功时候调用 resolve 函数 ，失败时候调用 reject 函数
+            // promise 实例可以包裹一个异步操作；我们把setTimeout 异步操作代码放进去：
+            btn2.onclick = function() {
+                // console.log(btn2)
+                const p = new Promise((resolve, reject) => {
+                    setTimeout(
+                        () => {
+                            // 30% 概率就是 1-100 随机数之间出现 1-30 的概率
+                            //  获取 1-100 的随机数
+                            let n = rand(1, 100)
+                            if (n <= 30) {
+                                //  此处属于成功，调用 resolve
+                                resolve() // 调用完之后，可以将 promise 对象的状态设置为成功；对应下面调用 .then时候执行第一个回调函数（成功后的回调函数）
+                            } else {
+                                // 此处失败，调用 reject
+                                reject() // 调用了 reject 函数，会自动让 p 对象的状态改称为失败，对应下面调用 .then时候执行第二个回调函数（失败后的回调函数）
+                            }
+                        }, 1000
+
+                    )
+
+                })
+                console.log(p)
+
+                //  调用 .then () 方法； then() 需要两个函数作为参数： 第一个函数是 p 对象成功时的回调，第二个函数是 p 对象失败后的回调；
+                p.then(() => {
+
+                    alert('Congratulations, you win an iPhone')
+                }, () => {
+                    alert('Please try next time')
+                })
+
+            }
+        </script>
+    </div>
+</body>
+
+</html>
