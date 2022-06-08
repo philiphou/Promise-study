@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise 的 .then 方法</title>
+</head>
+
+<body>
+    <script>
+        let p = new Promise((resolve, reject) => {
+            resolve('good to go')
+        })
+        let rst = p.then(value => {
+                console.log(value)
+                return 123
+                    // 此处也可以return 一个 新的 new promise（）， return的这个新的 promise 状态和值就决定了 下面调用 then 方法时候得到的最终的 promise的状态和值；
+            }, reason => {
+                console.warn(reason)
+            }) // 输出：good to go; 成功时候调用第一个函数；
+        console.log(rst) // rst 是个 promise对象，状态是 fulfilled; result 是 123， 也就是 resovle 函数调用后的返回值；没有return， 则rst 的值显示 undefined 
+        rst.then(value => {
+            console.log(value) // 输出： 123
+        })
+    </script>
+
+</body>
+
+</html>

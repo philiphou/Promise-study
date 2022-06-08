@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.race</title>
+</head>
+
+<body>
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            resolve("11")
+        })
+        let p2 = new Promise((resolve, reject) => {
+            resolve("22")
+        })
+        let p3 = new Promise((resolve, reject) => {
+            reject("404")
+        })
+        let rst1 = Promise.race([p1, p2, p3])
+        console.log(rst1) // 输出: fulliled 的promise， result是 11
+
+        let rst2 = Promise.race([p3, p2, p1])
+        console.log(rst2) // 输出：状态是 rejected promise 对象，result 是 404
+    </script>
+
+</body>
+
+</html>

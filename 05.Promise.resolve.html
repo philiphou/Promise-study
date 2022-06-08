@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise API</title>
+</head>
+
+<body>
+    <script>
+        // Promose.resolve() 如果传入的参数是 非Promise类型的对象，则返回结果是成的 Promise 对象； 
+        //  如果传入的参数为 promise对象，则参数的结果决定了 p1的结果； 如果参数promise是成功的，则 p1 就是成功的，p1的值就是参数promise成功的值；
+        let p1 = Promise.resolve(520)
+        console.log(p1) // 输出：一个 promise 对象 ，PromiseState 是 fulfilled, PromiseResult 是 520
+        let p2 = Promise.resolve(new Promise((resolve, reject) => {
+            resolve('OK')
+        }))
+        console.log(p2) // p2 也是一个成功的 promise, 值是 ok, 来自于参数promise成功的值; 如果参数 promise 是失败的，则 p1 也是失败的，值也是参数promise对象失败的值；
+
+        let p3 = Promise.resolve(new Promise((resolve, reject) => {
+            reject('wrong wrong wrong')
+        }))
+        p3.catch(reason => {
+            console.log(reason) // 输出： wrong wrong wrong
+        })
+    </script>
+</body>
+
+</html>

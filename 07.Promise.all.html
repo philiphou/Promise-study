@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.all</title>
+</head>
+
+<body>
+
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            resolve("11")
+        })
+        let p2 = new Promise((resolve, reject) => {
+            resolve("22")
+        })
+        let p3 = new Promise((resolve, reject) => {
+            reject("404")
+        })
+        let result = Promise.all([p1, p2])
+        console.log(result) // 输出：一个状态为成功的 promise对象，promise对象的值就是传入的数组参数；
+
+        let result2 = Promise.all([p2, p3])
+        console.log(result2) // 输出：一个状态为失败的promise对象，PromiseResult 就是那个失败的 promise参数的值： 404
+        result2.catch(reason => {
+            console.log(reason) // 输出： 404
+        })
+    </script>
+</body>
+
+</html>

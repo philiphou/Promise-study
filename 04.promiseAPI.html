@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise API</title>
+</head>
+
+<body>
+    <SCRIPT>
+        let p = new Promise((resolve, reject) => {
+                // 内部代码同步调用： 先打印 111 再打印 222
+                //console.log('111')
+                reject('error 坏了')
+
+            })
+            //console.log("222")
+
+        // 执行 catch 方法： 
+        p.catch(reason => {
+            console.log(reason)
+        })
+    </SCRIPT>
+</body>
+
+</html>

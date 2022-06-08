@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.reject</title>
+</head>
+
+<body>
+    <script>
+        let p = Promise.reject(404)
+        console.log(p) // 输出一个 rejected 状态的 promise 对象，失败的值是 404
+
+        p.catch(reason => {
+            console.log(reason) // 输出： 404
+        })
+
+        let p2 = Promise.reject(new Promise((resolve, reject) => {
+            resolve("success")
+        }))
+        p2.catch(reason => {
+            console.log(reason) // 这里失败的 reason 结果是 我们传入的参数，一个成功的 promise 对象；p2 是一个状态为 rejected 的 promise 对象；
+        })
+    </script>
+
+
+</body>
+
+</html>
