@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>promise 串联任务</title>
+    <title>How to break a promise chain</title>
 </head>
 
 <body>
@@ -13,17 +13,21 @@
         let p = new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve('ok')
-            }, 1000)
-
+            }, 2000)
         })
         p.then(value => {
+            console.log(111)
+                // 有且只有一种方式中断promise链条：返回一个pending状态的新的promise对象：
             return new Promise((resolve, reject) => {
-                resolve('success')
+
             })
         }).then(value => {
-            console.log(value) // 输出 success
+            console.log(122)
         }).then(value => {
-            console.log(value) // 输出 undefined
+            console.log(333)
+        }).catch(reason => {
+            console.warn(reason) // 最终结果是指输出： 111； 说明 promise链中断了。
+
         })
     </script>
 </body>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promise自定义封装 ---> 初始结构搭建</title>
+    <!-- 引入自定义的 Promise 方法 -->
+    <script src="./02.promiseModule.js"></script>
+</head>
+
+<body>
+    <script>
+        //  自定义promise
+        let p = new Promise((resolve, reject) => {
+            //resolve('ok')
+            // reject('5555')
+            //抛出异常： 
+            throw "坏了"
+        })
+        console.log(p)
+            // p.then(value => {
+            //     console.log(value) // 输出： ok
+
+        // }, reason => {
+        //     console.warn(reason)
+        // })
+    </script>
+</body>
+
+</html>
