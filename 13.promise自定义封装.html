@@ -17,15 +17,26 @@
             //resolve('ok')
             // reject('5555')
             //抛出异常： 
-            throw "坏了"
+            //throw "坏了"
+            // 设置异步操作，利用 setTimeOut() 函数；
+            setTimeout(() => {
+                resolve("ok")
+            }, 2000)
+        })
+
+        p.then(value => {
+            console.log(value) // 输出： ok
+
+        }, reason => {
+            console.warn(reason)
+        })
+        p.then(value => {
+            console.log('第二次调用' + value) // 输出： ok
+
+        }, reason => {
+            console.warn(reason)
         })
         console.log(p)
-            // p.then(value => {
-            //     console.log(value) // 输出： ok
-
-        // }, reason => {
-        //     console.warn(reason)
-        // })
     </script>
 </body>
 
