@@ -24,19 +24,19 @@
             }, 2000)
         })
 
-        p.then(value => {
-            console.log(value) // 输出： ok
+        const res = p.then(value => {
+                console.log(value) // 输出： ok
 
-        }, reason => {
-            console.warn(reason)
-        })
-        p.then(value => {
-            console.log('第二次调用' + value) // 输出： ok
+            }, reason => {
+                console.warn(reason)
+            })
+            // p.then(value => {
+            //     console.log('第二次调用' + value) // 输出： ok
 
-        }, reason => {
-            console.warn(reason)
-        })
-        console.log(p)
+        // }, reason => {
+        //     console.warn(reason)
+        // })
+        console.log(res)
     </script>
 </body>
 

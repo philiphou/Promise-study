@@ -49,17 +49,21 @@ function Promise(executor) {
 }
 //  为了让新构建的 promise 实例对象可以调用。then 方法，我们来给自己的Promise()添加 .then()方法：
 Promise.prototype.then = function(onResolved, onRejected) {
-    // 调用回调函数：
-    if (this.PromiseState === "fulfilled" || this.PromiseState === "resolved") {
-        onResolved(this.PromiseResult)
-    }
-    if (this.PromiseState === "rejected") {
-        onRejected(this.PromiseResult)
-    }
-    // 为了使promise 实例对象中的异步操作完成再执行。then(), 我们继续加一种情况，promise.state 是pending的时候： 
-    if (this.PromiseState === "pending") {
-        // 保存回调函数，然后在 promise 的执行器函数中当执行器函数调用完毕，promise状态改变时候，执行这个 .then中的回调函数
-        // 最好将这个回调函数保存在Promise 类上；所以我们回去到构造函数 Promise中加入一个属性： this.callback
-        this.callbacks.push({ onResolved, onRejected }) // 此处作了简写，如果键名和键值相同，可以简写成一个
-    }
+    // 封装 .then() 的返回值： 。then调用完毕以后应返回一个 promise 对象；状态是 fulfilled, 没有返回值的话 PromiseResult就是 undefined;
+    return new Promise((resolve, reject) => {
+        // 调用回调函数：
+        if (this.PromiseState === "fulfilled" || this.PromiseState === "resolved") {
+            // 获取回调函数 的执行结果；
+            let result = onResolved(this.PromiseResult)
+        }
+        if (this.PromiseState === "rejected") {
+            onRejected(this.PromiseResult)
+        }
+        // 为了使promise 实例对象中的异步操作完成再执行。then(), 我们继续加一种情况，promise.state 是pending的时候： 
+        if (this.PromiseState === "pending") {
+            // 保存回调函数，然后在 promise 的执行器函数中当执行器函数调用完毕，promise状态改变时候，执行这个 .then中的回调函数
+            // 最好将这个回调函数保存在Promise 类上；所以我们回去到构造函数 Promise中加入一个属性： this.callback
+            this.callbacks.push({ onResolved, onRejected }) // 此处作了简写，如果键名和键值相同，可以简写成一个
+        }
+    })
 }
