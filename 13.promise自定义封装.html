@@ -21,14 +21,18 @@
             // 设置异步操作，利用 setTimeOut() 函数；
             setTimeout(() => {
                 resolve("ok")
+                    // reject('坏了')
             }, 2000)
         })
 
         const res = p.then(value => {
                 console.log(value) // 输出： ok
+                return ('返回值')
 
             }, reason => {
                 console.warn(reason)
+                return ('报错了')
+
             })
             // p.then(value => {
             //     console.log('第二次调用' + value) // 输出： ok
@@ -36,7 +40,25 @@
         // }, reason => {
         //     console.warn(reason)
         // })
+
         console.log(res)
+
+        p.then( //v => {
+            // throw "抛出错误"
+
+            //}
+        ).then(v => {
+            console.log(222)
+            return "好了好了"
+
+        }).then(v => {
+            console.log(333)
+            console.log(v)
+
+
+        }).catch(reason => {
+            console.warn(reason)
+        })
     </script>
 </body>
 
